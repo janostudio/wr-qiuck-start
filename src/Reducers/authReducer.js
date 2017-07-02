@@ -1,9 +1,9 @@
-import * as TYPES from '../Actions/actionTypes';
+import * as TYPES from "../Actions/actionTypes";
 
 const initialState = {
-	isLoggedIn: false,
-	user: {},
-	errer:""
+  isLoggedIn: false,
+  user: {},
+  errer:""
 };
 
 let authReducer = (state=initialState, action)=>{

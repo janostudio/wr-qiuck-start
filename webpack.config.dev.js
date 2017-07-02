@@ -77,15 +77,15 @@ module.exports = {
   resolve: { extensions: [".jsx", ".js", ".json", ".less"] },
   module: {
     rules: [
-      // {
-      //   loader: "eslint-loader",
-      //   test: /\.(js|jsx)$/,
-      //   enforce: "pre",
-      //   exclude: /node_modules/,
-      //   options: {
-      //     emitWarning: true
-      //   }
-      // },
+      {
+        loader: "eslint-loader",
+        test: /\.(js|jsx)$/,
+        enforce: "pre",
+        exclude: /node_modules/,
+        options: {
+          emitWarning: true
+        }
+      },
       // jsx
       {
         test: /\.(js|jsx)$/,

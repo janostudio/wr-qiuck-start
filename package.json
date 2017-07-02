@@ -13,15 +13,10 @@
   "license": "UNLICENSED",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js",
-    "prod": "webpack -p --config webpack.prod.config.js --progress --colors",
+    "prod": "webpack -p --config webpack.config.dist.js --progress --colors",
     "dashborad": "&& webpack-dashboard",
     "lint": "eslint ./src/**/*.jsx --color",
     "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "src/**/*.jsx": [
-      "prettier --write"
-    ]
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",
