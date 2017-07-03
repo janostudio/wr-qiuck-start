@@ -15,7 +15,8 @@
     "dev": "webpack-dev-server --config webpack.config.dev.js",
     "prod": "webpack -p --config webpack.config.dist.js --progress --colors",
     "dashborad": "&& webpack-dashboard",
-    "lint": "eslint ./src/**/*.jsx --color",
+    "lint": "eslint --ext .js,.jsx src --color",
+    "lintfix": "eslint --fix .js,.jsx src --color",
     "precommit": "lint-staged"
   },
   "dependencies": {
