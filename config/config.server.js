@@ -5,12 +5,13 @@
  */
 
 module.exports = {
-    //contentBase: '/',
     host: '127.0.0.1',
-    port: 1024,
+    port: 3000,
     historyApiFallback: true,
     hot: true,
     inline:true,
+    contentBase: path.resolve(__dirname),
+    publicPath: path.resolve(__dirname,"/"),
     overlay: {
       errors: true,
       warnings: true

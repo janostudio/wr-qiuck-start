@@ -12,9 +12,9 @@
   "author": "Janathon Jiang",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.config.dev.js",
-    "prod": "webpack -p --config webpack.config.dist.js --progress --colors",
-    "dashborad": "&& webpack-dashboard",
+    "dev": "webpack-dev-server --config webpack.config.dist.js",
+    "dist": "set NODE_ENV=production&& webpack --progress --hide-modules --config webpack.config.dist.js",
+    "dist2": "export NODE_ENV=production&& webpack --progress --hide-modules --config webpack.config.dist.js",
     "lint": "eslint --ext .js,.jsx src --color",
     "lintfix": "eslint --fix .js,.jsx src --color",
     "precommit": "lint-staged"
