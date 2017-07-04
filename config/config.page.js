@@ -1,9 +1,3 @@
-/**
- *  生成页面配置
- *  Created by shiyanlin
- *  810975746@qq.com
- */
-
 module.exports = {
     "list": [{
         "name": "app",

@@ -1,9 +1,3 @@
-/**
- *  部署服务器配置
- *  Created by shiyanlin
- *  810975746@qq.com
- */
-
 module.exports = {
     "testServer": {
     	"host": '123.206.221.185',

@@ -1,12 +1,19 @@
 # wq-react-start
 
-## 运行（nodejs 6.0+）
+搭建环境 nodejs 6.11.0
+
+## 1. webpack开发发布环境搭建
+
 ```
- npm run dev (正常编译模式) 
 
- npm run hot (热替换编译模式)
+  npm run dev (热替换开发模式) 
 
- 访问 http://localhost:1024
+  npm run dist (发布生产版本，对代码进行混淆压缩，提取公共代码，分离css文件)
+
+  访问 http://localhost:3000
   
- npm run dist （发布生产版本，对代码进行混淆压缩，提取公共代码，分离css文件）
+  npm run lint (校对语法)
+
+  npm run lintfix (自动更正语法)
+
 ```
