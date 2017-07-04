@@ -7,7 +7,8 @@
     "react",
     "webpack3",
     "react-router4",
-    "redux-sagas"
+    "redux-sagas",
+    "redux"
   ],
   "author": "Janathon Jiang",
   "license": "MIT",
@@ -21,7 +22,7 @@
     "dev": "webpack-dev-server --config webpack.config.dev.js",
     "dist": "webpack --progress --hide-modules --config webpack.config.dist.js",
     "lint": "eslint --ext .js,.jsx src --color",
-    "lintfix": "eslint --fix .js,.jsx src --color",
+    "fix": "eslint --fix .js,.jsx src --color",
     "precommit": "lint-staged"
   },
   "dependencies": {

@@ -2,6 +2,8 @@
 
 搭建环境 nodejs 6.11.0
 
+用到的框架及插件：Webpack3 PostCss HotReload Eslint React React-Router4 Redux Redux-Sagas 
+
 ## 1. webpack开发发布环境搭建
 
 ```
@@ -14,6 +16,6 @@
   
   npm run lint (校对语法)
 
-  npm run lintfix (自动更正语法)
+  npm run fix (自动更正语法)
 
 ```
