@@ -1,20 +1,7 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { logIn } from "../Actions/authAction";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+export default class Main extends Component {
   render() {
-    return <div>Hello,wor1ld!s</div>;
+    return <div>1Page not found</div>;
   }
 }
-
-// export default connect(state => {
-//   const { authReducer } = state;
-//   return {
-//     authReducer
-//   };
-// })(Login);
