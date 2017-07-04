@@ -1,17 +1,44 @@
-var path = require('path');
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require("path");
+const webpack = require("webpack");
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-//判断当前运行环境是开发模式还是生产模式
-const nodeEnv = process.env.NODE_ENV || 'development';
-const isPro = nodeEnv === 'production';
-
-console.log("当前运行环境：", isPro ? 'production' : 'development')
-
-var plugins = [
+module.exports = {
+  context: path.resolve(__dirname, './src'),
+  entry: {
+      app:path.resolve(__dirname, "src/Entries/app"),
+      common: [
+          "react",
+          'react-dom',
+          'react-router',
+          'redux',
+          'react-redux',
+          'redux-thunk'
+      ]
+  },
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    filename: '[name].[chunkhash:8].bundle.js', // 推荐使用 ，但是--hot会报错，
+    chunkFilename: '[name]-[id].[chunkhash:8].bundle.js', // 代码分割
+    publicPath: './'
+  },
+  plugins: [
+    new CleanWebpackPlugin(path.resolve(__dirname, "dist")),
+    new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+        sourceMap: true,
+        comments: false
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV: JSON.stringify('development') //定义编译环境
+        }
+    }),
     new ExtractTextPlugin('styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
         name: 'vendor',
@@ -20,113 +47,57 @@ var plugins = [
             return module.context && module.context.indexOf('node_modules') !== -1;
         }
     }),
-    new webpack.DefinePlugin({
-        // 定义全局变量
-        'process.env':{
-            'NODE_ENV': JSON.stringify(nodeEnv)
-        }
-    }),
     new HtmlWebpackPlugin({
-      template: "./Template/index.html",
-      // title: item.title,
-      // filename: item.filename,
-      // chunks: [item.chunks]
-      // minify: {
-      //   removeComments: true,
-      //   collapseWhitespace: true,
-      //   removeRedundantAttributes: true,
-      //   useShortDoctype: true,
-      //   removeEmptyAttributes: true,
-      //   removeStyleLinkTypeAttributes: true,
-      //   keepClosingSlash: true,
-      //   minifyJS: true,
-      //   minifyCSS: true,
-      //   minifyURLs: true
-      // }
-    })
-]
-var app = ['./Entries/app']
-if (isPro) {
-  plugins.push(
-      new CleanWebpackPlugin(path.resolve(__dirname, "dist")),
-      new webpack.LoaderOptionsPlugin({
-          minimize: true,
-          debug: false
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-          sourceMap: true,
-          comments: false,
-          ie8: true
-      })
-  )
-} else {
-    // app.unshift('react-hot-loader/patch', 'webpack-dev-server/client?http://localhost:3011', 'webpack/hot/only-dev-server')
-    app.unshift('webpack-dev-server/client?http://localhost:3011')
-    plugins.push(
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
-  )
-}
-
-module.exports = {
-    context: path.resolve(__dirname, 'src'),
-    devtool: isPro ? 'source-map' : 'eval-source-map',
-    entry: {
-        app: app
-    },
-    output: {
-        filename: isPro ?'[name].[chunkhash:8].bundle.js' : '[name].js',
-        path: path.join(__dirname, 'dist'),
-        publicPath: isPro ? './' : '/',
-        chunkFilename: '[name].[chunkhash:8].bundle.js' // 代码分割
-    },
-    // BASE_URL是全局的api接口访问地址
-    plugins,
-    // alias是配置全局的路径入口名称，只要涉及到下面配置的文件路径，可以直接用定义的单个字母表示整个路径
-    resolve: {
-        extensions: ['.js', '.jsx', '.less', '.css'],
-        // modules: [
-        //     path.resolve(__dirname, 'node_modules'),
-        //     path.join(__dirname, './src')
-        // ],
-        // alias: {
-        //     "actions": path.resolve(__dirname, "src/actions"),
-        //     "components": path.resolve(__dirname, "src/components"),
-        //     "containers": path.resolve(__dirname, "src/containers"),
-        //     "reducers": path.resolve(__dirname, "src/reducers"),
-        //     "utils": path.resolve(__dirname, "src/utils")
-        // }
-    },
-
-    module: {
-        rules: [{
-            test: /\.js[x]?$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-                loader: 'babel-loader?cacheDirectory=true'
-            }
-        }, {
-            test: /\.(less|css)$/,
-            use: ExtractTextPlugin.extract({
-                use: ["css-loader", "postcss-loader", "less-loader"]
-            })
-        }, {
-            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-            use: ['url-loader?limit=1000&name=files/[md5:hash:base64:10].[ext]']
-        }]
-    },
-    devServer: {
-        hot: true,
-        compress: true,
-        port: 3011,
-        inline:true,
-        historyApiFallback: true,
-        contentBase: path.resolve(__dirname),
-        publicPath: path.resolve(__dirname,"/"),
-        // stats: {
-        //     modules: false,
-        //     chunks: false
-        // },
-    }
+        template: "./Template/index.html",
+        filename: 'app.html'
+    }),
+    // new webpack.ProvidePlugin({
+    //     $:"jquery",
+    //     jQuery:"jquery",
+    //     "window.jQuery":"jquery"
+    // }),
+    new webpack.optimize.ModuleConcatenationPlugin()     // 3.0新功能 范围提升 （Scope Hoisting ）
+  ],
+  resolve: { extensions: [".jsx", ".js", ".json", ".less"] },
+  module: {
+    rules: [
+      {
+        loader: "eslint-loader",
+        test: /\.(js|jsx)$/,
+        enforce: "pre",
+        exclude: /node_modules/,
+        options: {
+          emitWarning: true
+        }
+      },
+      {
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, "./src"),
+        use: ["babel-loader"]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)(\?.*$|$)/,
+        use: ["url-loader"]
+      },
+      {
+        test: /\.(png|jpg|ico)$/,
+        loader: "url-loader?limit=10000&name=assets/[name].[ext]"
+      },
+      {
+        test: /\.svg$/,
+        loader: "svg-inline-loader"
+      },
+      {
+        test: /\.json?$/,
+        loader: "json-loader"
+      },
+      {
+        test: /\.less$/,
+        include: path.resolve(__dirname, "src"),
+        use: ExtractTextPlugin.extract({
+            use: ["css-loader", "postcss-loader", "less-loader"]
+        })
+      }
+    ]
+  }
 };

@@ -12,7 +12,8 @@ store.subscribe(() => {
 
 render(
   <Provider store={store}>
-    {route}
+    {/* {route} */}
+    <div>hello,world!</div>
   </Provider>,
   document.body.appendChild(document.createElement("div"))
 );

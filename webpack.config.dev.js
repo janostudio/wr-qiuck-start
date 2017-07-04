@@ -4,48 +4,9 @@ const DashboardPlugin = require("webpack-dashboard/plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// 引入页面配置文件
-const pageConfig = require('./config/config.page.js');
-
-// 引入dev-server配置文件
-const serverConfig = require('./config/config.server.js'); 
-
-// entry配置
-const entryConfig = {}
-pageConfig.list.map(function(item, index) {
-    // entryConfig[item.name] = item.entry
-    let _obj = {
-    	[item.name]: path.join(__dirname, item.entry)
-    }
-    Object.assign(entryConfig, _obj)
-})
-
-const plugins = [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-    new webpack.DefinePlugin({
-        'process.env': {
-            NODE_ENV: JSON.stringify('development') //定义编译环境
-        }
-    }),
-    new DashboardPlugin()
-]
-// 生成html配置
-pageConfig.list.map(function(item, index) {
-    plugins.push(
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, item.template),
-            title: item.title,
-            filename: item.filename,
-            chunks: [item.chunks]
-        })
-    )
-})
-
 module.exports = {
   context: path.resolve(__dirname, './src'),
   devtool: "inline-source-map",
-  //entry: entryConfig,
   entry: {
       app:path.resolve(__dirname, "src/Entries/app"),
       common: [
@@ -57,14 +18,6 @@ module.exports = {
           'redux-thunk'
       ]
   },
-  externals: {
-      "react": "React",
-      "react-router": "ReactRouter",
-      "react-dom": "ReactDOM",
-      "redux": "Redux",
-      'react-redux': "ReactRedux",
-      'redux-thunk': "ReduxThunk"
-  },
   output: {
     path: path.resolve(__dirname, './dist'),
     //filename: '[name].[chunkhash:8].bundle.js', // 推荐使用 ，但是--hot会报错，
@@ -72,8 +25,39 @@ module.exports = {
     chunkFilename: '[name]-[id].[chunkhash:8].bundle.js', // 代码分割
     publicPath: 'dist/'
   },
-  plugins: plugins,
-  devServer: serverConfig,
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV: JSON.stringify('development') //定义编译环境
+        }
+    }),
+    new ExtractTextPlugin('[name].css'),
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: function (module) {
+            // 该配置假定你引入的 vendor 存在于 node_modules 目录中
+            return module.context && module.context.indexOf('node_modules') !== -1;
+        }
+    }),
+    new HtmlWebpackPlugin({
+        template: "./Template/index.html"
+    })
+  ],
+  devServer: {
+    host: '127.0.0.1',
+    port: 3000,
+    historyApiFallback: true,
+    hot: true,
+    inline:true,
+    contentBase: path.resolve(__dirname),
+    publicPath: path.resolve(__dirname,"/dist"),
+    overlay: {
+        errors: true,
+        warnings: true
+    }
+  },
   resolve: { extensions: [".jsx", ".js", ".json", ".less"] },
   module: {
     rules: [
@@ -86,7 +70,6 @@ module.exports = {
           emitWarning: true
         }
       },
-      // jsx
       {
         test: /\.(js|jsx)$/,
         include: path.resolve(__dirname, "./src"),

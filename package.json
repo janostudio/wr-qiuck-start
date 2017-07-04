@@ -5,16 +5,15 @@
   "main": "server.js",
   "keywords": [
     "react",
-    "webpack",
-    "project",
-    "web"
+    "webpack3",
+    "react-router4",
+    "redux-sagas"
   ],
   "author": "Janathon Jiang",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.config.dist.js",
-    "dist": "set NODE_ENV=production&& webpack --progress --hide-modules --config webpack.config.dist.js",
-    "dist2": "export NODE_ENV=production&& webpack --progress --hide-modules --config webpack.config.dist.js",
+    "dev": "webpack-dev-server --config webpack.config.dev.js",
+    "dist": "webpack --progress --hide-modules --config webpack.config.dist.js",
     "lint": "eslint --ext .js,.jsx src --color",
     "lintfix": "eslint --fix .js,.jsx src --color",
     "precommit": "lint-staged"
