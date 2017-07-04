@@ -11,6 +11,12 @@
   ],
   "author": "Janathon Jiang",
   "license": "MIT",
+  "browserslist": [
+    "ie > 8",
+    "Opera >= 10",
+    "Firefox >= 20",
+    "Chrome >= 40"
+  ],
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js",
     "dist": "webpack --progress --hide-modules --config webpack.config.dist.js",
@@ -31,7 +37,6 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.1",
     "babel-core": "^6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.1",
@@ -53,8 +58,11 @@
     "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.29.0",
     "jsx-loader": "^0.13.2",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.4",
     "offline-plugin": "^4.8.1",
     "postcss-cssnext": "^2.11.0",
+    "postcss-import": "^10.0.0",
     "postcss-loader": "^2.0.6",
     "prettier": "^1.5.2",
     "react-hot-loader": "next",
@@ -64,8 +72,6 @@
     "webpack": "^3.0.0",
     "webpack-chunk-hash": "^0.4.0",
     "webpack-dashboard": "^0.4.0",
-    "webpack-dev-server": "^2.5.0",
-    "less": "^2.7.2",
-    "less-loader": "^4.0.4"
+    "webpack-dev-server": "^2.5.0"
   }
 }

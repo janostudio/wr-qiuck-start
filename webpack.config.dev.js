@@ -43,6 +43,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
         template: "./Template/index.html"
+        //favicon:'./icon.ico'
     })
   ],
   devServer: {
@@ -57,6 +58,7 @@ module.exports = {
         errors: true,
         warnings: true
     }
+    //proxy: proxyConfig
   },
   resolve: { extensions: [".jsx", ".js", ".json", ".less"] },
   module: {

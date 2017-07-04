@@ -50,6 +50,7 @@ module.exports = {
     new HtmlWebpackPlugin({
         template: "./Template/index.html",
         filename: 'app.html'
+        //favicon:'./icon.ico'
     }),
     // new webpack.ProvidePlugin({
     //     $:"jquery",
