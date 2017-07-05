@@ -22,7 +22,7 @@
     "dev": "webpack-dev-server --config webpack.config.dev.js",
     "dist": "webpack --progress --hide-modules --config webpack.config.dist.js",
     "lint": "eslint --ext .js,.jsx src --color",
-    "fix": "eslint --fix .js,.jsx src --color",
+    "fix": "eslint --ext .js,.jsx src --fix --color",
     "precommit": "lint-staged"
   },
   "dependencies": {
