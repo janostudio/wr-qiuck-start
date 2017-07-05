@@ -117,11 +117,94 @@ source-map方便查错，`inline-source-map`模式为打包前的每个文件添
 
 ### 2.6 resolve
 
+```
+    resolve: { extensions: [".jsx", ".js", ".json", ".less"] }
+```
+
+webpack模块解析规则，extensions自动加载后缀名，webpack3第一个不需要空字符。
+
 ### 2.7 module
+
+```
+  module: {
+    // loader 规则
+    rules: [
+      {
+        loader: "eslint-loader",
+        test: /\.(js|jsx)$/,
+        enforce: "pre",
+        exclude: /node_modules/,
+        options: {
+          emitWarning: true
+        }
+      },
+      {
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, "./src"),
+        use: ["babel-loader"]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)(\?.*$|$)/,
+        use: ["url-loader"]
+      },
+      {
+        test: /\.(png|jpg|ico)$/,
+        loader: "url-loader?limit=10000&name=assets/[name].[ext]"
+      },
+      {
+        test: /\.svg$/,
+        loader: "svg-inline-loader"
+      },
+      {
+        test: /\.json?$/,
+        loader: "json-loader"
+      },
+      {
+        test: /\.less$/,
+        include: path.resolve(__dirname, "src"),
+        use: ExtractTextPlugin.extract({
+            use: ["css-loader", "postcss-loader", "less-loader"]
+        })
+      }
+    ]
+  }
+```
+
+主要就是引入各类loader，但是需要注意的是loader是从右往左加载的，及`"less-loader" -> "postcss-loader" -> "css-loader"`。
 
 ### 2.8 devServer
 
+```
+    host: '127.0.0.1',
+    port: 3000,
+    historyApiFallback: true,
+    // 热加载
+    hot: true,
+    inline:true,
+    // 内容地址
+    contentBase: path.resolve(__dirname),
+    // 发布路径与output一致即可
+    publicPath: path.resolve(__dirname,"/dist"),
+    // proxy: proxyConfig
+```
+
+proxy可配置网站代理。
 
 ## 3 PostCSS配置
+
+具体参考[postcss](https://segmentfault.com/a/1190000003909268)
+
+主要要说到的是，在配置中，把`browserlist`规则写入了package.json中：
+
+```
+  "browserslist": [
+    "ie > 8",
+    "Opera >= 10",
+    "Firefox >= 20",
+    "Chrome >= 40"
+  ]
+```
+
+如果不写`ie` `opera`等规则，则`autoprefixer`不会主动加`-ms-` `-o-`等前缀。
 
 
