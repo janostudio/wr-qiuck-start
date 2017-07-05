@@ -33,11 +33,11 @@ module.exports = {
             NODE_ENV: JSON.stringify('development') //定义编译环境
         }
     }),
-    new ExtractTextPlugin('[name].css'),
+    new ExtractTextPlugin('styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
+        name: 'common',
         minChunks: function (module) {
-            // 该配置假定你引入的 vendor 存在于 node_modules 目录中
+            // 该配置假定你引入的 common 存在于 node_modules 目录中
             return module.context && module.context.indexOf('node_modules') !== -1;
         }
     }),
@@ -100,13 +100,7 @@ module.exports = {
           "style-loader",
           {
             loader: "css-loader",
-            options: {
-              modules: true,
-              localIdentName: "[name]__[local]--[hash:base64:5]",
-              Composing: true,
-              sourceMap: true,
-              importLoaders: 1
-            }
+            options: { sourceMap: true }
           },
           {
             loader:"postcss-loader",

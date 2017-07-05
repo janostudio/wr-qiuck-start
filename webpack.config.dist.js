@@ -41,9 +41,9 @@ module.exports = {
     }),
     new ExtractTextPlugin('styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
+        name: 'common',
         minChunks: function (module) {
-            // 该配置假定你引入的 vendor 存在于 node_modules 目录中
+            // 该配置假定你引入的 common 存在于 node_modules 目录中
             return module.context && module.context.indexOf('node_modules') !== -1;
         }
     }),
