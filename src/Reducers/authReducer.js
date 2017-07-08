@@ -14,7 +14,6 @@ let authReducer = (state = initialState, action) => {
         isLoggedIn: true,
         user: action.user
       };
-
     case TYPES.SIGN_OUT:
       return {
         ...state,
@@ -26,13 +25,6 @@ let authReducer = (state = initialState, action) => {
         ...state,
         isLoggedIn: false,
         user: {}
-      };
-    case TYPES.SIGN_ERRER_REAL:
-      return {
-        ...state,
-        isLoggedIn: false,
-        user: {},
-        errer: action.error
       };
     default:
       return state;
