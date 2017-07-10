@@ -7,8 +7,8 @@ function action(type, payload = {}) {
   return { type, ...payload };
 }
 
-export const signIn = (user) => action(SIGN_IN, { user });
+export const signIn = user => action(SIGN_IN, { user });
 
-export const signErrer = (errer) => action(SIGN_ERRER, { errer });
+export const signErrer = errer => action(SIGN_ERRER, { errer });
 
 export const signOut = () => action(SIGN_OUT);

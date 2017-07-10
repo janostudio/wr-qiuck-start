@@ -1,16 +1,14 @@
-import {LoginUrl} from '../../Config/url';
+import { LoginUrl } from "../../Config/url";
 
 function callApi(apiurl, opt) {
-  return fetch(apiurl,{
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body:JSON.stringify(opt)
-    })
-    .then(response =>
-      response.json().then(json => ({ json, response }))
-    )
+  return fetch(apiurl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(opt)
+  })
+    .then(response => response.json().then(json => ({ json, response })))
     .then(({ json, response }) => {
       if (!response.ok) {
         return Promise.reject(json);
@@ -18,7 +16,7 @@ function callApi(apiurl, opt) {
     })
     .then(
       response => ({ response }),
-      error => ({ error: error.message || 'Something bad happened.' })
+      error => ({ error: error.message || "Something bad happened." })
     );
 }
 
