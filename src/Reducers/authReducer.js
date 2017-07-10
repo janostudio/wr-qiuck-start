@@ -1,4 +1,4 @@
-import * as TYPES from "../Actions/actionTypes";
+import * as TYPES from "../Actions";
 
 const initialState = {
   isLoggedIn: false,

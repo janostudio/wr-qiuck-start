@@ -9,18 +9,21 @@ import {
 } from "redux-saga/effects";
 import * as actions from "../Actions";
 import { rootReducer } from "../Reducers";
-import { api } from "../Services/Api";
+import { api } from "../Services/api";
 
-function* fetchUser(action) {
+export function* fetchUser(action) {
   try {
-    console.log("sign_in");
-    const user = yield call(api.fetchUser, action.payload.userId);
+    const user = yield call(api.fetchUser, action.user);
     yield put({ type: "SIGN_IN_SUCCEEDED", user: user });
   } catch (e) {
     yield put({ type: "SIGN_IN_FAILED", message: e.message });
   }
 }
 
-function* mySaga() {
-  yield* takeEvery(actions.SIGN_IN, fetchUser);
+export function* watchfetchUser() {
+  yield takeEvery(actions.SIGN_IN, fetchUser);
+}
+
+export default function* rootSaga() {
+  yield all([fork(watchfetchUser)]);
 }

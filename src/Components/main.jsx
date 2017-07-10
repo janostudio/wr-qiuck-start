@@ -1,13 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { signIn } from "../Actions";
 
-export default class Main extends Component {
+class Main extends Component {
   constructor(props) {
     super(props);
   }
 
   handleClick = () => {
     const user = { name: "opt", password: "123" };
-    dispatch({ type: "SIGN_IN", payload: { user } });
+    signIn(user);
   };
 
   render() {
@@ -39,3 +41,12 @@ export default class Main extends Component {
     );
   }
 }
+
+export default connect(
+  state => ({
+    authReducer: state.authReducer
+  }),
+  {
+    signIn
+  }
+)(Main);
