@@ -1,74 +1,34 @@
 # Redux-Saga
 
-[官方中文链接](http://leonshi.com/redux-saga-in-chinese/index.html)
+[感觉讲不清楚的官方中文链接](http://leonshi.com/redux-saga-in-chinese/index.html)  
 [Github链接](https://github.com/redux-saga/redux-saga)
+[案例教学](https://juejin.im/entry/58897142570c350062e0f96f)
 
-## 1 基本过程
+## 1 saga的基本教程
 
-UI页面
+Redux saga 暴露了几个方法，称为 Effects，定义如下：
 
-```
-    class UserComponent extends Component {
-        ...
-        onSomeButtonClicked() {
-            const { userId, dispatch } = this.props
-            dispatch({type: 'USER_FETCH_REQUESTED', payload: {userId}})
-        }
-        ...
-    }
-```
+*Fork*  
+执行一个非阻塞操作。
 
-Saga.js创建监听这个Action的事件
+*Take*  
+暂停并等待action到达。
 
-```
-    import { takeEvery, takeLatest } from 'redux-saga'
-    import { call, put } from 'redux-saga/effects'
-    import Api from '...'
+*Race*  
+同步执行多个 effect，然后一旦有一个完成，取消其他 effect。
 
-    // workder Saga : 将在 USER_FETCH_REQUESTED action 被发起时调用
-    function* fetchUser(action) {
-        try {
-            const user = yield call(Api.fetchUser, action.payload.userId);
-            yield put({type: "USER_FETCH_SUCCEEDED", user: user});
-        } catch (e) {
-            yield put({type: "USER_FETCH_FAILED", message: e.message});
-        }
-    }
+*Call*  
+调用一个函数，如果这个函数返回一个 promise ，那么它会阻塞 saga，直到promise成功被处理。
 
-    /*
-    在每个 `USER_FETCH_REQUESTED` action 被发起时调用 fetchUser
-    允许并发（译注：即同时处理多个相同的 action）
-    */
-    function* mySaga() {
-        yield* takeEvery("USER_FETCH_REQUESTED", fetchUser);
-    }
+*Put*  
+触发一个Action。
 
-    /*
-    也可以使用 takeLatest
+*Select*  
+启动一个选择函数，从 state 中获取数据。
 
-    不允许并发，发起一个 `USER_FETCH_REQUESTED` action 时，
-    如果在这之前已经有一个 `USER_FETCH_REQUESTED` action 在处理中，
-    那么处理中的 action 会被取消，只会执行当前的
-    */
-    function* mySaga() {
-        yield* takeLatest("USER_FETCH_REQUESTED", fetchUser);
-    }
-```
+*takeLatest*  
+意味着我们将执行所有操作，然后返回最后一个(the latest one)调用的结果。如果我们触发了多个时间，它只关注最后一个(the latest one)返回的结果。
 
-连接store
+*takeEvery*  
+会返回所有已出发的调用的结果。
 
-```
-    import { createStore, applyMiddleware } from 'redux'
-    import createSagaMiddleware from 'redux-saga'
-
-    import reducer from './reducers'
-    import mySaga from './sagas'
-
-    const sagaMiddleware = createSagaMiddleware(mySaga)
-    const store = createStore(
-        reducer,
-        applyMiddleware(sagaMiddleware)
-    )
-
-    // render the application
-```
