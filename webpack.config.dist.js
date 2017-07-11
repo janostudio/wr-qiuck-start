@@ -9,12 +9,12 @@ module.exports = {
   entry: {
       app:path.resolve(__dirname, "src/Entries/app"),
       common: [
-          "react",
-          'react-dom',
-          'react-router',
-          'redux',
-          'react-redux',
-          'redux-thunk'
+        "react",
+        'react-dom',
+        'react-router',
+        'redux',
+        'react-redux',
+        'redux-saga'
       ]
   },
   output: {
