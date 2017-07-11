@@ -309,7 +309,7 @@ staticRouter是服务器端渲染使用，不做拓展。
 
 *goForward() - (function)*  
 
-*block(prompt) - (function)*
+*block(prompt) - (function)*  
 阻止页面挑战
 
 ## location
@@ -352,8 +352,8 @@ url需要匹配的部分
 
 * 方法
 
-*Component.WrappedComponent*
+*Component.WrappedComponent*  
 独立包装组件，用于测试。
 
-*wrappedComponentRef: func*
+*wrappedComponentRef: func*  
 增加ref
