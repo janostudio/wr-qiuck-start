@@ -7,9 +7,14 @@ class Main extends Component {
     super(props);
   }
 
+  // componentDidMount() {
+  //   this.props.loadImages();
+  // }
+
   handleClick = () => {
     const user = { name: "opt", password: "123" };
-    signIn(user);
+    let action = signIn(user);
+    dispatch(action);
   };
 
   render() {
@@ -42,11 +47,13 @@ class Main extends Component {
   }
 }
 
-export default connect(
-  state => ({
+function mapStateToProps(state) {
+  return {
     authReducer: state.authReducer
-  }),
-  {
-    signIn
   }
-)(Main);
+}
+// function mapActionCreatorsToProps(dispatch) {
+//   return bindActionCreators(signIn,dispatch);
+// }
+// export default connect(mapStateToProps,mapActionCreatorsToProps)(Main);
+export default connect(mapStateToProps)(Main);
