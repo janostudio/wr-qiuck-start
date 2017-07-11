@@ -1,4 +1,4 @@
-import { LoginUrl } from "../Config/url";
+import { TestUrl } from "../Config/url";
 
 function callApi(apiurl, opt) {
   return fetch(apiurl, {
@@ -21,8 +21,4 @@ function callApi(apiurl, opt) {
 }
 
 // api services
-export const api = {
-  fetchUser() {
-    return login => callApi(LoginUrl, opt);
-  }
-};
+export const fetchUser = user => callApi(TestUrl, user);

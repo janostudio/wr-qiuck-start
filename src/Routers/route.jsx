@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Route, Switch, Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import store from "../Store/store";
-import Main from "../Components/main";
+import Main from "../Containers/main";
 
 // this is the default behavior
 const getConfirmation = (message, callback) => {

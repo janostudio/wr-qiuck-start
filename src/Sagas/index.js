@@ -9,7 +9,7 @@ import {
 } from "redux-saga/effects";
 import * as actions from "../Actions";
 import { rootReducer } from "../Reducers";
-import { api } from "../Services/api";
+import * as api from "../Services/api";
 
 export function* fetchUser(action) {
   try {

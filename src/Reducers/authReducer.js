@@ -3,26 +3,27 @@ import * as TYPES from "../Actions";
 const initialState = {
   isLoggedIn: false,
   user: {},
-  errer: ""
+  error: null
 };
 
 let authReducer = (state = initialState, action) => {
   switch (action.type) {
     case TYPES.SIGN_IN:
       return {
+        isLoggedIn: true
+      };
+    case TYPES.SIGN_IN_SUCCESS:
+      return {
         ...state,
-        isLoggedIn: true,
         user: action.user
+      };
+    case TYPES.SIGN_IN_FAILED:
+      return {
+        isLoggedIn: false,
+        error: action.error
       };
     case TYPES.SIGN_OUT:
       return {
-        ...state,
-        isLoggedIn: false,
-        user: {}
-      };
-    case TYPES.SIGN_ERRER:
-      return {
-        ...state,
         isLoggedIn: false,
         user: {}
       };
