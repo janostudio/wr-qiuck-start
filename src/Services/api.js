@@ -1,6 +1,6 @@
 import { TestUrl } from "../Config/url";
 
-function callApi(apiurl, opt) {
+export function callApi(apiurl, opt) {
   return fetch(apiurl, {
     method: "POST",
     headers: {
@@ -19,6 +19,3 @@ function callApi(apiurl, opt) {
       error => ({ error: error.message || "Something bad happened." })
     );
 }
-
-// api services
-export const fetchUser = user => callApi(TestUrl, user);

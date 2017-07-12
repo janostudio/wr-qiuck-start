@@ -41,11 +41,8 @@ module.exports = {
     }),
     new ExtractTextPlugin('styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
-        name: 'common',
-        minChunks: function (module) {
-            // 该配置假定你引入的 common 存在于 node_modules 目录中
-            return module.context && module.context.indexOf('node_modules') !== -1;
-        }
+        name: ['app','common'],
+        minChunks: 2
     }),
     new HtmlWebpackPlugin({
         template: "./Template/index.html",
@@ -93,10 +90,15 @@ module.exports = {
         loader: "json-loader"
       },
       {
+        test: /\.css$/,
+        loader: ["style-loader","css-loader","postcss-loader"]
+      },
+      {
         test: /\.less$/,
         include: path.resolve(__dirname, "src"),
         use: ExtractTextPlugin.extract({
-            use: ["css-loader", "postcss-loader", "less-loader"]
+          fallback: 'style-loader',
+          use: ["css-loader", "postcss-loader", "less-loader"]
         })
       }
     ]

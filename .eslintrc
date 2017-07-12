@@ -27,7 +27,6 @@
     "rules": {
         "prettier/prettier": 1,
         "no-cond-assign": 2,
-        "no-constant-condition": 2,
         "no-dupe-args": 2,
         "no-dupe-keys": 2,
         "no-duplicate-case": 2,

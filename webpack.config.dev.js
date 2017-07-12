@@ -11,10 +11,8 @@ module.exports = {
       common: [
         "react",
         'react-dom',
-        'react-router',
-        'redux',
-        'react-redux',
-        'redux-saga'
+        'react-router-dom',
+        'react-redux'
       ]
   },
   output: {
@@ -34,11 +32,8 @@ module.exports = {
     }),
     new ExtractTextPlugin('styles.css'),
     new webpack.optimize.CommonsChunkPlugin({
-        name: 'common',
-        minChunks: function (module) {
-            // 该配置假定你引入的 common 存在于 node_modules 目录中
-            return module.context && module.context.indexOf('node_modules') !== -1;
-        }
+        name: ['app','common'],
+        minChunks: 2
     }),
     new HtmlWebpackPlugin({
         template: "./Template/index.html"
@@ -91,6 +86,10 @@ module.exports = {
       {
         test: /\.json?$/,
         loader: "json-loader"
+      },
+      {
+        test: /\.css$/,
+        loader: ["style-loader","css-loader","postcss-loader"]
       },
       {
         test: /\.less$/,

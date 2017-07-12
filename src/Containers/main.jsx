@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { signIn } from "../Actions";
+import { signIn } from "../Redux/Actions/user";
 
 class Main extends Component {
   constructor(props) {
