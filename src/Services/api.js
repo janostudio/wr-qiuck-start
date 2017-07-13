@@ -1,5 +1,4 @@
-import { TestUrl } from "../Config/url";
-
+// 可能需要http-proxy-middleware，否则将自动设置为localhost的请求。
 export function callApi(apiurl, opt) {
   return fetch(apiurl, {
     method: "POST",

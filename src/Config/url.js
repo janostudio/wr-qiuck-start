@@ -1,5 +1,5 @@
 // Select Server
-const Server = "http://jealand.win";
+const Server = "http://localhost:3000";
 
 export const TestUrl = "https://www.baidu.com/";
 
